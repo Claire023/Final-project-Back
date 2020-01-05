@@ -2,6 +2,7 @@
 
 
 define('DS', DIRECTORY_SEPARATOR); //Raccourci séparation folder
+define('CONTROLLERS_PATH', 'Controllers');
 
 
 //Parametres de connexion à la BDD
