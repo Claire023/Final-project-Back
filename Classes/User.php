@@ -4,7 +4,6 @@
 class User implements JsonSerializable {
 
     private $id;
-    private $pseudo;
     private $mail;
     private $password;
 
@@ -17,9 +16,11 @@ class User implements JsonSerializable {
     public static function feedUser(array $fUser){
 
         $user = new self();
+        //On vérifie l'existence de l'attribut ID
+        if(isset($fUser['u_id'])){
         $user->setId($fUser['u_id']);
-        $user->setPseudo($fUser['pseudo']);
-        $user->setMail($fUser['mail']);
+        }
+        $user->setMail($fUser['email']);
         $user->setPassword($fUser['password']);
 
         return $user;
@@ -41,13 +42,7 @@ class User implements JsonSerializable {
         return $this->id;
     }
 
-    /**
-     * @return mixed
-     */
-    public function getPseudo()
-    {
-        return $this->pseudo;
-    }
+
 
     /**
      * @return mixed
@@ -73,13 +68,7 @@ class User implements JsonSerializable {
         $this->id = $id;
     }
 
-    /**
-     * @param mixed $pseudo
-     */
-    public function setPseudo($pseudo)
-    {
-        $this->pseudo = $pseudo;
-    }
+
 
     /**
      * @param mixed $mail
@@ -99,7 +88,6 @@ class User implements JsonSerializable {
     public function jsonSerialize() {
         return [
             'id' => $this->id,
-            'pseudo' => $this->pseudo,
             'mail' => $this->mail,
             'password' => $this->password,
         ];

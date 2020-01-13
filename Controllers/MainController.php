@@ -10,8 +10,6 @@ Class MainController {
     protected $data;// array Données obtenu en POST par défaut
     protected $session;// array Données obtenu en SESSION par défaut
 
-
-
     public function __construct(){
         $this->parameters = array();
         $this->data = array();
@@ -19,13 +17,12 @@ Class MainController {
     }
 
 
-
-    protected function JsonCall($data){
+    protected function JsonCall($data, $code = 200){
         header('Content-Type: application/json');
         header("Access-Control-Allow-Origin: *");
+        http_response_code($code);
         $myJson = json_encode($data);
         echo $myJson;
-
 
     }
 
