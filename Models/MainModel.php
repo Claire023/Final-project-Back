@@ -1,7 +1,8 @@
 <?php
+
 class MainModel{
     private static $pdo = NULL;//Notre objet PDO
-    
+
     //La fonction __construct nous retourne notre objet PDO si il existe deja , sinon , il nous le crée
     public function __construct(){
         if(self::$pdo == NULL){
@@ -10,7 +11,7 @@ class MainModel{
         }
         return self::$pdo;
     }
-    
+
     //Permet une requete de type DROP,INSERT,UPDATE
     protected function makeStatement($sql, $params = array())
     {
@@ -29,15 +30,15 @@ class MainModel{
                         case "integer":
                             $type = PDO::PARAM_INT;
                             break;
-                            
+
                         case "boolean":
                             $type = PDO::PARAM_BOOL;
                             break;
-                            
+
                         case "NULL":
                             $type = PDO::PARAM_NULL;
                             break;
-                            
+
                         default:
                             $type = PDO::PARAM_STR;
                     }
@@ -50,10 +51,10 @@ class MainModel{
                 }
             }
         }
-        
+
         return $statement;
     }
-    
+
     /**
      * @param string $sql Your SELECT query
      * @param array $params An associative array with form : 'placeholder' => $value
@@ -66,15 +67,15 @@ class MainModel{
     protected function makeSelect($sql, $params = array(), $fetchStyle = PDO::FETCH_ASSOC, $fetchArg = NULL)
     {
         $statement = $this->makeStatement($sql, $params);
-        
+
         if($statement === false)
         {
             return false;
         }
-        
+
         $data = is_null($fetchArg) ? $statement->fetchAll($fetchStyle) : $statement->fetchAll($fetchStyle, $fetchArg);
         $statement->closeCursor();
-        
+
         return $data;
     }
 }

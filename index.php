@@ -3,9 +3,8 @@
 include('ini.php');
 include ('./Controllers/MainController.php');
 include ('./Controllers/UserController.php');
+include ('./Controllers/ContactController.php');
 include ('./Utilitaires/JWT.php');
-
-
 
 
 // Allow from any origin
@@ -28,12 +27,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'OPTIONS') {
 
 
 
-
-
 try {
-
-
-
 
 
     //premiere etape pour récupérer le corps d'un requete http.
@@ -44,8 +38,6 @@ try {
             $_POST[$key]= $value;
         }
     }
-
-
 
 
     //On écrase les paramètres par défaut si on a des informations en GET

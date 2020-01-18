@@ -18,7 +18,6 @@ Class UserController extends MainController {
     }
 
 
-
     public function addUser(){
 
         //$userToAdd = User::feedUser($this->data);
@@ -70,10 +69,6 @@ Class UserController extends MainController {
                         'jwt' => $jwt,
                         'exp' => EXPIRATION_DATE //renvoi date expiration en secondes
                     ));
-
-
-
-
 
 
 
