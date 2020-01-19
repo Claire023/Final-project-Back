@@ -38,8 +38,6 @@ class Contact implements JsonSerializable  {
         }
 
 
-
-
         /**
          * @return mixed
          */
@@ -123,6 +121,7 @@ class Contact implements JsonSerializable  {
         public function jsonSerialize() {
 
             return [
+                //a gauche coté database et à droite récupère dans les setters
                 'ID' => $this->id,
                 'email' => $this->email,
                 'nom' => $this->nom,
