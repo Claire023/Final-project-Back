@@ -2,7 +2,6 @@
 
 
 include('./Classes/User.php');
-include('./Models/MainModel.php');
 include('./Models/UserModel.php');
 
 
@@ -12,9 +11,12 @@ Class UserController extends MainController {
 
     public function getUserList(){
 
+        if($this->isAuthanticated()) {
         $userModel = new UserModel();
         $users = $userModel->getUserList();
         $this->JsonCall($users);
+
+        }
     }
 
 
@@ -70,8 +72,6 @@ Class UserController extends MainController {
                         'exp' => EXPIRATION_DATE //renvoi date expiration en secondes
                     ));
 
-
-
                 } else {
                     throw new Exception("Identifiant de connexion ou mot de passe incorrect");
                 }
@@ -87,7 +87,6 @@ Class UserController extends MainController {
             ), 401);
         }
     }
-
 
 }
 

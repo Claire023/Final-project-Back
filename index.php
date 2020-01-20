@@ -1,11 +1,56 @@
 <?php
 
 include('ini.php');
+include('./Models/MainModel.php');
 include ('./Controllers/MainController.php');
 include ('./Controllers/UserController.php');
 include ('./Controllers/ContactController.php');
+include ('./Controllers/BookController.php');
 include ('./Utilitaires/JWT.php');
 
+
+
+date_default_timezone_set('Europe/Paris');
+
+//Pour récupérer le token coté header
+
+function getAuthorizationHeader(){
+    $headers = null;
+    if (isset($_SERVER['Authorization'])) {
+        //trim : enelve espaces devant et derriere
+        $headers = trim($_SERVER["Authorization"]);
+    }
+    else if (isset($_SERVER['HTTP_AUTHORIZATION'])) { //Nginx or fast CGI
+        $headers = trim($_SERVER["HTTP_AUTHORIZATION"]);
+    } else if (function_exists('apache_request_headers')) {
+        $requestHeaders = apache_request_headers();
+        // Server-side fix for bug in old Android versions (a nice side-effect of this fix means we don't care about capitalization for Authorization)
+        $requestHeaders = array_combine(array_map('ucwords', array_keys($requestHeaders)), array_values($requestHeaders));
+        //print_r($requestHeaders);
+        if (isset($requestHeaders['Authorization'])) {
+            $headers = trim($requestHeaders['Authorization']);
+        }
+    }
+    return $headers;
+}
+/**
+ * get access token from header
+ * */
+function getBearerToken() {
+    $headers = getAuthorizationHeader();
+    // HEADER: Get the access token from the header
+    if (!empty($headers)) {
+        //vérifie que ca comment bien par Bearer
+        if (preg_match('/Bearer\s(\S+)/', $headers, $matches)) {
+            //récupère la deuxiere partie
+            return $matches[1];
+        }
+    }
+    return null;
+}
+
+//Recuperation du token
+$_POST['jwt_token'] = getBearerToken();
 
 // Allow from any origin
 if (isset($_SERVER['HTTP_ORIGIN'])) {
@@ -24,7 +69,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'OPTIONS') {
 
             exit(0);
 }
-
 
 
 try {

@@ -9,11 +9,13 @@ Class MainController {
     protected $parameters;// array parametres obtenu en GET par défaut
     protected $data;// array Données obtenu en POST par défaut
     protected $session;// array Données obtenu en SESSION par défaut
+    protected $payload;
 
     public function __construct(){
         $this->parameters = array();
         $this->data = array();
         $this->session = array();
+        $this->payload = array();
     }
 
 
@@ -23,6 +25,18 @@ Class MainController {
         http_response_code($code);
         $myJson = json_encode($data);
         echo $myJson;
+
+    }
+
+    protected function isAuthanticated() {
+        try {
+            $this->payload = JWT::decode($this->data['jwt_token'], SECRET_KEY);
+            return true;
+        } catch (Exception $e) {
+            return false;
+        }
+
+
 
     }
 

@@ -2,7 +2,6 @@
 
 
 include('./Classes/Contact.php');
-include_once('./Models/MainModel.php');
 include('./Models/ContactModel.php');
 
 

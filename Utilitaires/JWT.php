@@ -63,6 +63,10 @@ class JWT
      */
     public static function decode($jwt, $key, array $allowed_algs = array())
     {
+        if(sizeof($allowed_algs) == 0) {
+            $allowed_algs = JWT::$supported_algs;
+        }
+
         $timestamp = is_null(static::$timestamp) ? time() : static::$timestamp;
         if (empty($key)) {
             throw new InvalidArgumentException('Key may not be empty');
