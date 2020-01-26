@@ -20,16 +20,17 @@ class UserModel extends MainModel
     public function addUser($tab) {
         $e ='';
         $param = ['email' => $tab['email'],
-            //encription du password
-            'password' => password_hash($tab['password'], PASSWORD_DEFAULT)];
-        $req = 'INSERT INTO `User` (email, password) VALUES (:email,:password);';
+            //encription du password avec la fonction passwordHash
+            //je rajoute 0 car mon user n'est pas admin(admin=1)
+            'password' => password_hash($tab['password'], PASSWORD_DEFAULT),
+            'isAdmin' => 0];
+        $req = 'INSERT INTO `User` (email, password, isAdmin) VALUES (:email,:password, :isAdmin);';
 
         try{
             $this->makeStatement($req,$param);
         }catch(PDOexception $e){}
         return $e;
     }
-
 
     public function getUser($email) {
         $req = 'SELECT * FROM User WHERE email =:email' ;

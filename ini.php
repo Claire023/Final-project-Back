@@ -15,4 +15,4 @@ define('DB_PASS','root');
 define('SECRET_KEY','secret_key');
 define('DATE_CREATION',time());
 define('VALIDATION_START',DATE_CREATION);
-define('EXPIRATION_DATE', VALIDATION_START + 3600); //temps de validité du token
+define('EXPIRATION_DATE', VALIDATION_START + 3000); //temps de validité du token

@@ -6,6 +6,9 @@ class User implements JsonSerializable {
     private $id;
     private $mail;
     private $password;
+    private $isAdmin;
+
+
 
 
     public function __constructor(){
@@ -22,13 +25,31 @@ class User implements JsonSerializable {
         }
         $user->setMail($fUser['email']);
         $user->setPassword($fUser['password']);
+        $user->setIsAdmin($fUser['isAdmin'] == 1 ? true : false);
 
         return $user;
     }
 
 
+    /**
+     * @param mixed $isAdmin
+     */
+    public function setIsAdmin($isAdmin)
+    {
+        $this->isAdmin = $isAdmin;
+    }
+
     public function toString(){
         return $this->mail;
+    }
+
+
+    /**
+     * @return mixed
+     */
+    public function getIsAdmin()
+    {
+        return $this->isAdmin;
     }
 
 

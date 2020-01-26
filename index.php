@@ -5,9 +5,9 @@ include('./Models/MainModel.php');
 include ('./Controllers/MainController.php');
 include ('./Controllers/UserController.php');
 include ('./Controllers/ContactController.php');
+include ('./Controllers/ProductController.php');
 include ('./Controllers/BookController.php');
 include ('./Utilitaires/JWT.php');
-
 
 
 date_default_timezone_set('Europe/Paris');
@@ -40,9 +40,9 @@ function getBearerToken() {
     $headers = getAuthorizationHeader();
     // HEADER: Get the access token from the header
     if (!empty($headers)) {
-        //vérifie que ca comment bien par Bearer
+        //vérifie que ca commence bien par Bearer
         if (preg_match('/Bearer\s(\S+)/', $headers, $matches)) {
-            //récupère la deuxiere partie
+            //récupère la deuxieme partie
             return $matches[1];
         }
     }
@@ -69,7 +69,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'OPTIONS') {
 
             exit(0);
 }
-
 
 try {
 

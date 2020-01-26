@@ -27,7 +27,4 @@ Class BookModel extends MainModel {
 //     }
 
 
-
-
-
 }

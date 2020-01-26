@@ -5,7 +5,6 @@ include('./Classes/User.php');
 include('./Models/UserModel.php');
 
 
-
 Class UserController extends MainController {
 
 
@@ -47,6 +46,7 @@ Class UserController extends MainController {
                     throw new Exception("Identifiant de connexion ou mot de passe incorrect");
                 }
                 $user = User::feedUser($rep[0]);
+                //On compare les mdp avec la fonction password_verify
                 if (password_verify($this->data['password'], $user->getPassword())) {
 
                     //CREATION TOKEN
@@ -57,11 +57,10 @@ Class UserController extends MainController {
                         "exp" => EXPIRATION_DATE,
                         "data" => array(
                             "email" => $user->getMail(),
-                            "password" => $user->getPassword()
+                            "password" => $user->getPassword(),
+                            "isAdmin" => $user->getIsAdmin()
                         )
                     );
-
-
 
                      //Encodage token
                     $jwt = JWT::encode($token, SECRET_KEY);
@@ -69,7 +68,9 @@ Class UserController extends MainController {
                     $this->JsonCall(Array(
                         'message' => "Accès autorisé",
                         'jwt' => $jwt,
-                        'exp' => EXPIRATION_DATE //renvoi date expiration en secondes
+                        'exp' => EXPIRATION_DATE, //renvoi date expiration en secondes
+                        //ajout admin
+                        'isAdmin' => $user->getIsAdmin()
                     ));
 
                 } else {

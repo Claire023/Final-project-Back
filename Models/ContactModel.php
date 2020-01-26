@@ -35,7 +35,7 @@ Class ContactModel extends MainModel {
     public function getContact($email) {
         $req = 'SELECT * FROM Contact WHERE email =:email' ;
         $param = ['email' => $email];
-        //rempalce les placeholder par leur valeurs, empêchent les injections SQL
+        //remplace les placeholder par leur valeurs, empêchent les injections SQL
         return $this->makeSelect($req, $param);
     }
 

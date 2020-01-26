@@ -157,6 +157,7 @@ class JWT
         $segments = array();
         $segments[] = static::urlsafeB64Encode(static::jsonEncode($header));
         $segments[] = static::urlsafeB64Encode(static::jsonEncode($payload));
+        //On change le tableau en chaine de caracteres
         $signing_input = implode('.', $segments);
         $signature = static::sign($signing_input, $key, $alg);
         $segments[] = static::urlsafeB64Encode($signature);
