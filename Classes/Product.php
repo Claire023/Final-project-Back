@@ -33,6 +33,18 @@ class Product implements  JsonSerializable {
         return $product;
     }
 
+
+    public static function feedSubCategory(array $fSubCategory){
+
+        $subCategory = new self();
+        //On vérifie l'existence de l'attribut ID
+        if(isset($fSubCategory['ID'])){
+            $subCategory->setId($fSubCategory['ID']);
+        }
+        $subCategory->setSub_category($fSubCategory['sub_category']);
+        return $subCategory;
+    }
+
     /**
      * @return mixed
      */

@@ -1,6 +1,7 @@
 <?php
 
 include('./Classes/Product.php');
+include('./Classes/ProductCategory.php');
 include('./Models/ProductModel.php');
 
 
@@ -14,6 +15,44 @@ Class ProductController extends MainController {
         $productModel = new ProductModel();
         $products = $productModel->getProductList();
         $this->JsonCall($products);
+    }
+
+
+    //Obtenir la liste des catégories de produits pour les afficher dans le menu
+
+    public function getProductCategoryList(){
+
+        $productModel = new ProductModel();
+        $productCategory = $productModel->getProductCategoryList();
+        $this->JsonCall($productCategory);
+    }
+
+
+    //Obtenir la liste des sous-catégories de boissons
+
+    public function getDrinkCategoryList(){
+        $productModel = new ProductModel();
+        $drinkSubCategory = $productModel->getDrinkSubCategoryList();
+        $this->JsonCall($drinkSubCategory);
+    }
+
+
+   //Obtenir la liste des  sous-catégories pour les entrées
+
+    public function getStarterCategoryList(){
+        $productModel = new ProductModel();
+        $starterSubCategory = $productModel->getStarterSubCategoryList();
+        $this->JsonCall($starterSubCategory);
+    }
+
+
+
+    //Obtenir la liste des sous-catégories pour les plats
+
+    public function getMainCategoryList(){
+        $productModel = new ProductModel();
+        $mainSubCategory = $productModel->getMainSubCategoryList();
+        $this->JsonCall($mainSubCategory);
     }
 
 
