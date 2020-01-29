@@ -29,7 +29,6 @@ Class ProductController extends MainController {
 
 
     //Obtenir la liste des sous-catégories de boissons
-
     public function getDrinkCategoryList(){
         $productModel = new ProductModel();
         $drinkSubCategory = $productModel->getDrinkSubCategoryList();
@@ -38,7 +37,6 @@ Class ProductController extends MainController {
 
 
    //Obtenir la liste des  sous-catégories pour les entrées
-
     public function getStarterCategoryList(){
         $productModel = new ProductModel();
         $starterSubCategory = $productModel->getStarterSubCategoryList();
@@ -48,12 +46,38 @@ Class ProductController extends MainController {
 
 
     //Obtenir la liste des sous-catégories pour les plats
-
     public function getMainCategoryList(){
         $productModel = new ProductModel();
         $mainSubCategory = $productModel->getMainSubCategoryList();
         $this->JsonCall($mainSubCategory);
     }
+
+
+    //Obtenir la liste des sous-catégories pour desserts
+    public function getDessertCategoryList(){
+        $productModel = new ProductModel();
+        $dessertSubCategory = $productModel->getDessertSubCategoryList();
+        $this->JsonCall($dessertSubCategory);
+    }
+
+
+    //Obtenir la liste des sous-catégories pour les digestifs
+    public function getDigCategoryList(){
+        $productModel = new ProductModel();
+        $digSubCategory = $productModel->getDigSubCategoryList();
+        $this->JsonCall($digSubCategory);
+    }
+
+
+
+
+    //Test pour extraire les entrées
+    public function getStarterList(){
+        $productModel = new ProductModel();
+        $starterCategory = $productModel->getStarter();
+        $this->JsonCall($starterCategory);
+    }
+
 
 
     public function updateProduct(){
@@ -68,5 +92,4 @@ Class ProductController extends MainController {
             ), 401);
         }
     }
-
 }

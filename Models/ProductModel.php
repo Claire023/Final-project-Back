@@ -71,6 +71,50 @@ Class ProductModel extends MainModel {
 
 
     /*
+     * retourne la liste des sous-catégories de desserts
+     */
+    public function getDessertSubCategoryList() {
+        $dessertSubCategoryList = array();
+        $sql = 'SELECT DISTINCT sub_category FROM Products WHERE category="NUESTROS POSTRES - Nos Desserts"';
+        $datas = $this->makeSelect($sql);
+        foreach($datas as $value){
+            $dessertSubCategoryList[] = Product::feedSubCategory($value);
+        }
+        return $dessertSubCategoryList;
+    }
+
+
+    /*
+     * retourne la liste des sous-catégories de digestifs
+     */
+    public function getDigSubCategoryList() {
+        $digSubCategoryList = array();
+        $sql = 'SELECT DISTINCT sub_category FROM Products WHERE category="NUESTROS CAFFECITOS - Nos Cafés & Thés"';
+        $datas = $this->makeSelect($sql);
+        foreach($datas as $value){
+            $digSubCategoryList[] = Product::feedSubCategory($value);
+        }
+        return $digSubCategoryList;
+    }
+
+
+
+
+    /*
+     * Test pour récupérer les entrées et leur sous catégories
+     */
+    public function getStarter() {
+        $starterList = array();
+        $sql = 'SELECT * FROM Products WHERE category="NUESTRAS ENTRADAS - Nos Entrées"';
+        $datas = $this->makeSelect($sql);
+        foreach($datas as $value){
+            $starterList[] = Product::feedProduct($value);
+        }
+        return $starterList;
+    }
+
+
+    /*
      * Met à jour mes produits dans la table
      */
     public function updateProduct($tab) {
