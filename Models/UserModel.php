@@ -32,6 +32,7 @@ class UserModel extends MainModel
         return $e;
     }
 
+
     public function getUser($email) {
         $req = 'SELECT * FROM User WHERE email =:email' ;
         $param = ['email' => $email];

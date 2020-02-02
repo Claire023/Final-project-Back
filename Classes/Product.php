@@ -5,16 +5,14 @@ class Product implements  JsonSerializable {
     private $id;
     private $name;
     private $description;
-    private $price;
-    private $category;
-    private $sub_category;
-
-
+    private $id_cat;
+    private $id_sub_category;
+    private $category_name;
+    private $sub_category_name;
 
     public function __constructor(){
 
     }
-
 
 
     public static function feedProduct(array $fProduct){
@@ -26,23 +24,12 @@ class Product implements  JsonSerializable {
         }
         $product->setName($fProduct['name']);
         $product->setDescription($fProduct['description']);
-        $product->setPrice($fProduct['price']);
-        $product->setCategory($fProduct['category']);
-        $product->setSub_category($fProduct['sub_category']);
+        $product->setId_cat($fProduct['id_cat']);
+        $product->setId_sub_category($fProduct['id_sub_category']);
+        $product->setCategory_name($fProduct['category_name']);
+        $product->setSub_category_name($fProduct['sub_category_name']);
 
         return $product;
-    }
-
-
-    public static function feedSubCategory(array $fSubCategory){
-
-        $subCategory = new self();
-        //On vérifie l'existence de l'attribut ID
-        if(isset($fSubCategory['ID'])){
-            $subCategory->setId($fSubCategory['ID']);
-        }
-        $subCategory->setSub_category($fSubCategory['sub_category']);
-        return $subCategory;
     }
 
     /**
@@ -72,25 +59,33 @@ class Product implements  JsonSerializable {
     /**
      * @return mixed
      */
-    public function getPrice()
+    public function getId_cat()
     {
-        return $this->price;
+        return $this->id_cat;
     }
 
     /**
      * @return mixed
      */
-    public function getCategory()
+    public function getId_sub_category()
     {
-        return $this->category;
+        return $this->id_sub_category;
     }
 
     /**
      * @return mixed
      */
-    public function getSub_category()
+    public function getCategory_name()
     {
-        return $this->sub_category;
+        return $this->category_name;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getSub_category_name()
+    {
+        return $this->sub_category_name;
     }
 
     /**
@@ -110,7 +105,7 @@ class Product implements  JsonSerializable {
     }
 
     /**
-     * @param mixed $desc
+     * @param mixed $description
      */
     public function setDescription($description)
     {
@@ -118,28 +113,37 @@ class Product implements  JsonSerializable {
     }
 
     /**
-     * @param mixed $price
+     * @param mixed $id_cat
      */
-    public function setPrice($price)
+    public function setId_cat($id_cat)
     {
-        $this->price = $price;
+        $this->id_cat = $id_cat;
     }
 
     /**
-     * @param mixed $category
+     * @param mixed $id_sub_category
      */
-    public function setCategory($category)
+    public function setId_sub_category($id_sub_category)
     {
-        $this->category = $category;
+        $this->id_sub_category = $id_sub_category;
     }
 
     /**
-     * @param mixed $sub_category
+     * @param mixed $category_name
      */
-    public function setSub_category($sub_category)
+    public function setCategory_name($category_name)
     {
-        $this->sub_category = $sub_category;
+        $this->category_name = $category_name;
     }
+
+    /**
+     * @param mixed $sub_category_name
+     */
+    public function setSub_category_name($sub_category_name)
+    {
+        $this->sub_category_name = $sub_category_name;
+    }
+
 
 
     public function jsonSerialize() {
@@ -149,9 +153,10 @@ class Product implements  JsonSerializable {
             'ID' => $this->id,
             'name' => $this->name,
             'description' => $this->description,
-            'price' => $this->price,
-            'category' => $this->category,
-            'sub_category' => $this->sub_category,
+            'id_cat' => $this->id_cat,
+            'id_sub_category' => $this->id_sub_category,
+            'category_name' => $this->category_name,
+            'sub_category_name' => $this->sub_category_name,
         ];
     }
 
