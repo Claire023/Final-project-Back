@@ -35,17 +35,15 @@ Class MainController {
         } catch (Exception $e) {
             return false;
         }
-
     }
 
-//On vérifie si la personne est authneitifiée et aussi notre user est admin
+//On vérifie si la personne est authentifiée et aussi si notre user est admin
     protected function isAdmin() {
         $result = false;
         //dans l'objet payload on descend et on veux l'objet data et dans data on veux la valeur de l'attribut isAdmin
         if($this->isAuthanticated() && $this->payload->data->isAdmin){
             $result = true;
         }
-
 
         return $result;
     }
@@ -97,9 +95,5 @@ Class MainController {
     {
         $this->session = $session;
     }
-
-
-
-
 
 }
