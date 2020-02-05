@@ -52,5 +52,20 @@ Class ProductController extends MainController {
  }
 
 
+ public function addProduct(){
+
+     $productModel = new productModel();
+     $productModel->addProduct($this->data);
+     $this->JsonCall($this->data);
+ }
+
+
+ public function getCategory(){
+     $productModel = new productModel();
+     $categories = $productModel->getCategoryList();
+     $this->JsonCall($categories);
+ }
+
+
 
 }

@@ -25,7 +25,6 @@ Class MainController {
         http_response_code($code);
         $myJson = json_encode($data);
         echo $myJson;
-
     }
 
     protected function isAuthanticated() {

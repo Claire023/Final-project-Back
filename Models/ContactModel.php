@@ -23,7 +23,6 @@ Class ContactModel extends MainModel {
         $e ='';
         $param = ['email' => $tab['email'], 'nom' => $tab['nom'] ,  'sujet' => $tab['sujet'], 'message' => $tab['message']];
         $req = 'INSERT INTO `Contact` (email, nom, sujet, message) VALUES (:email,:nom, :sujet, :message);';
-
         try{
             $this->makeStatement($req,$param);
         }catch(PDOexception $e){}

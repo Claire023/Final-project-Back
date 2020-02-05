@@ -57,6 +57,19 @@ public function updateProduct($tab){
 }
 
 
+public function addProduct($tab){
+        $e ='';
+        $param = ['name' => $tab['name'], 'description' => $tab['description'] ,  'id_cat' => $tab['id_cat'], 'id_sub_category' => $tab['id_sub_category']];
+        $req = 'INSERT INTO `Products` (name, description, id_cat, id_sub_category) VALUES (:name,:description, :id_cat, :id_sub_category);';
+
+        try{
+            $this->makeStatement($req,$param);
+        }catch(PDOexception $e){}
+
+        return $e;
+    }
+
+
     /*
      * Met à jour mes produits dans la table
      */
@@ -72,4 +85,21 @@ public function updateProduct($tab){
         return $e;
     } */
 
-}
+
+
+//     je récupère les catégories pour lfaire un select dynamique coté front pour ajouter les bonnes categories
+    public function getCategoryList(){
+            $categoryList = array();
+            $sql = 'SELECT * FROM product_category';
+            $datas = $this->makeSelect($sql);
+            foreach($datas as $value){
+                $categoryList[] = ProductCategory::feedProductCategory($value);
+            }
+            return $categoryList;
+        }
+
+    }
+
+
+
+

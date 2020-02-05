@@ -71,9 +71,6 @@ class ProductCategory implements JsonSerializable {
 
 
 
-
-
-
     public function jsonSerialize() {
 
         return [
@@ -83,12 +80,6 @@ class ProductCategory implements JsonSerializable {
 
         ];
     }
-
-
-
-
-
-
 
 }
 
