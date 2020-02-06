@@ -1,5 +1,7 @@
 <?php
 
+use Classes\ProductSubCategory;
+
 Class ProductModel extends MainModel {
 
 
@@ -97,6 +99,28 @@ public function addProduct($tab){
             }
             return $categoryList;
         }
+
+
+
+        //je récupère mes sous-catégories pour faire un select dynamique dans mon formulaire coté angular
+        public function getSubCategoryList(){
+            $subCategoryList = array();
+            $sql = 'SELECT * FROM product_sub_category';
+            $datas = $this->makeSelect($sql);
+            foreach($datas as $value){
+                $subCategoryList[] = ProductSubCategory::feedProductSubCategory($value);
+            }
+            return $subCategoryList;
+        }
+
+
+
+
+
+
+
+
+
 
     }
 

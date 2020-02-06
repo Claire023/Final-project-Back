@@ -57,19 +57,6 @@ class ProductCategory implements JsonSerializable {
     }
 
 
-    public static function feedProductSubCategory(array $fProductCategory){
-
-        $productCategory = new self();
-        //On vérifie l'existence de l'attribut ID
-        if(isset($fProductCategory['ID'])){
-            $productCategory->setId($fProductCategory['ID']);
-        }
-        $productCategory->setName($fProductCategory['name']);
-
-        return $productCategory;
-    }
-
-
 
     public function jsonSerialize() {
 

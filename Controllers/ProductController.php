@@ -2,6 +2,7 @@
 
 include('./Classes/Product.php');
 include('./Classes/ProductCategory.php');
+include('./Classes/ProductSubCategory.php');
 include('./Models/ProductModel.php');
 
 
@@ -59,11 +60,18 @@ Class ProductController extends MainController {
      $this->JsonCall($this->data);
  }
 
-
+//Pour faire un select  dynamique dans le formulaire d'ajout de produit
  public function getCategory(){
      $productModel = new productModel();
      $categories = $productModel->getCategoryList();
      $this->JsonCall($categories);
+ }
+
+ //Pour faire un select  dynamique dans le formulaire d'ajout de produit
+ public function getSubCategory(){
+     $productModel = new productModel();
+     $subCategories = $productModel->getSubCategoryList();
+     $this->JsonCall($subCategories);
  }
 
 
