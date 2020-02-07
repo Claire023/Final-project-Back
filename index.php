@@ -9,7 +9,6 @@ include ('./Controllers/ProductController.php');
 include ('./Controllers/BookController.php');
 include ('./Utilitaires/JWT.php');
 
-
 date_default_timezone_set('Europe/Paris');
 
 //Pour récupérer le token coté header
@@ -17,7 +16,7 @@ date_default_timezone_set('Europe/Paris');
 function getAuthorizationHeader(){
     $headers = null;
     if (isset($_SERVER['Authorization'])) {
-        //trim : enelve espaces devant et derriere
+        //trim : enleve espaces devant et derriere
         $headers = trim($_SERVER["Authorization"]);
     }
     else if (isset($_SERVER['HTTP_AUTHORIZATION'])) { //Nginx or fast CGI
@@ -72,7 +71,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'OPTIONS') {
 
 try {
 
-
     //premiere etape pour récupérer le corps d'un requete http.
     $data = json_decode(file_get_contents('php://input'), true);
 
@@ -98,7 +96,7 @@ try {
         throw new Exception("ce controller n'existe pas");
     }
 
-    //On entre nos parametres(GET) et nos données(POST) dans notre controleur.
+    //On entre nos parametres(GET) et nos données(POST) dans notre controller.
     $controller->setParameters($_GET);
     $controller->setData($_POST);
 

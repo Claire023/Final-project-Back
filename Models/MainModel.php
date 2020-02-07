@@ -51,7 +51,6 @@ class MainModel{
                 }
             }
         }
-
         return $statement;
     }
 

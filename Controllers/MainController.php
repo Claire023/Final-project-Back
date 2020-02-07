@@ -21,7 +21,10 @@ Class MainController {
 
     protected function JsonCall($data, $code = 200){
         header('Content-Type: application/json');
-        header("Access-Control-Allow-Origin: *");
+        header("Access-Control-Allow-Origin: http://localhost:4200");
+        header('Vary: Accept-Encoding, Origin');
+        header("Access-Control-Allow-Methods: GET, PUT, POST, DELETE, OPTIONS");
+        header('Access-Control-Allow-Headers: Origin, X-Requested-With, Accept, Authorization, Content-Type');
         http_response_code($code);
         $myJson = json_encode($data);
         echo $myJson;

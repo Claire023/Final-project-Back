@@ -53,12 +53,25 @@ Class ProductController extends MainController {
  }
 
 
- public function addProduct(){
 
+ public function addProduct(){
      $productModel = new productModel();
      $productModel->addProduct($this->data);
      $this->JsonCall($this->data);
  }
+
+
+
+ public function deleteProduct(){
+     $productModel = new ProductModel();
+     if($productModel->deleteProduct($this->parameters['ID'])){
+         header('Location:index.php?controller=product&action=getAll&ID='.$this->parameters['ID']);
+     }
+     else{
+         echo "error";
+     }
+ }
+
 
 //Pour faire un select  dynamique dans le formulaire d'ajout de produit
  public function getCategory(){
@@ -73,7 +86,6 @@ Class ProductController extends MainController {
      $subCategories = $productModel->getSubCategoryList();
      $this->JsonCall($subCategories);
  }
-
 
 
 }

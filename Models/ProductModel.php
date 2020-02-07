@@ -19,7 +19,6 @@ Class ProductModel extends MainModel {
        }
 
 
-
        //Retour la liste entiere de tout produit avec categories/sous-catégories
        public function getAllForMenu() {
            $productMenuList = array();
@@ -72,23 +71,6 @@ public function addProduct($tab){
     }
 
 
-    /*
-     * Met à jour mes produits dans la table
-     */
-   /*  public function updateProduct($tab) {
-        $e ='';
-        $param = ['name' => $tab['name'], 'description' => $tab['description'] ,  'price' => $tab['price'], 'category' => $tab['category'], 'sub_category' => $tab['sub_category']];
-        $req = "UPDATE Products SET (name, description, price, category, sub_category) WHERE ID => " + $tab['ID'] + ";";
-
-        try{
-            $this->makeStatement($req,$param);
-        }catch(PDOexception $e){}
-
-        return $e;
-    } */
-
-
-
 //     je récupère les catégories pour lfaire un select dynamique coté front pour ajouter les bonnes categories
     public function getCategoryList(){
             $categoryList = array();
@@ -114,16 +96,14 @@ public function addProduct($tab){
         }
 
 
-
-
-
-
-
-
-
-
+//Je supprime un produit en fonction de son ID
+        public function deleteProduct($id){
+            $sql = 'DELETE FROM Products WHERE ID=:id';
+            $param = array('id'=>$id);
+             if($this->makeStatement($sql,$param)){
+                return true;
+            }
+            return false;
+        }
     }
-
-
-
 
