@@ -42,8 +42,10 @@ class MainModel{
                         default:
                             $type = PDO::PARAM_STR;
                     }
-                    if($statement->bindValue($placeholder, $value, $type) === false)
+                    if($statement->bindValue($placeholder, $value, $type) === false){
+
                         return false;
+                    }
                 }
                 if(!$statement->execute())
                 {

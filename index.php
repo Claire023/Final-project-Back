@@ -8,6 +8,8 @@ include ('./Controllers/ContactController.php');
 include ('./Controllers/ProductController.php');
 include ('./Controllers/BookController.php');
 include ('./Utilitaires/JWT.php');
+include ('./Utilitaires/HttpCode.php');
+
 
 date_default_timezone_set('Europe/Paris');
 

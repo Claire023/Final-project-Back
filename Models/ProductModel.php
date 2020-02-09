@@ -32,30 +32,48 @@ Class ProductModel extends MainModel {
 }
 
 
+public function getProductById($id){
+    $sql = $sql = "SELECT a.ID , a.name, a.description, a.id_cat, a.id_sub_category, b.name as 'category_name', c.name as 'sub_category_name'
+         FROM Products a
+        INNER JOIN product_category b ON a.id_cat = b.ID
+        LEFT JOIN product_sub_category c ON a.id_sub_category = c.ID
+        WHERE  a.ID=:id;";
+    $param = ['id' => $id];
+    $data = $this->makeSelect($sql,$param);
+    if(sizeof($data) != 0) {
+        return $data[0];
+    } else {
+        throw new Exception('Le produit que vous recherchez n\'existe pas');
+    }
+
+}
+
+
 //Edite un  produit
 public function updateProduct($tab){
         $e ='';
+
+
+        $req ="UPDATE Products SET
+    name = :name,
+    description = :description,
+    id_cat = :id_cat,
+    id_sub_category= :id_sub_category
+    WHERE ID = :ID;";
         $param = [
             'ID' => $tab['ID'],
             'name' => $tab['name'] ,
             'description' => $tab['description'],
             'id_cat' => $tab['id_cat'],
-            'id_sub_cat' => $tab['id_sub_cat']
+            'id_sub_category' => $tab['id_sub_category']
         ];
-
-        $req ="UPDATE Products SET
-    name = :name,
-    description = :description,
-    id_cat = :id-cat,
-    id_sub_cat= :id_sub_cat
-    WHERE ID = :ID;";
-
         try{
             $this->makeStatement($req,$param);
         }catch(PDOexception $e){}
 
         return $e;
 }
+
 
 
 public function addProduct($tab){
@@ -105,5 +123,30 @@ public function addProduct($tab){
             }
             return false;
         }
+
+
+
+
+        public function addCategory($tab){
+            $e ='';
+            $param = ['name' => $tab['name']];
+            $req = 'INSERT INTO `product_category` (name) VALUES (:name);';
+
+            try{
+                $this->makeStatement($req,$param);
+            }catch(PDOexception $e){}
+
+            return $e;
+
+        }
+
+
+
+
+
+
+
+
+
     }
 

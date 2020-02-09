@@ -46,12 +46,27 @@ Class ProductController extends MainController {
  }
 
 
- public function updateProduct(){
+//On récpère par ID pour faire un edit des produit par ID
+ public function getProductById(){
      $productModel = new ProductModel();
-     $productModel->updateProduct($this->data);
-     $this->JsonCall($this->data);
+     try {
+         $product = $productModel->getProductById($this->parameters['ID']);
+         $this->JsonCall($product);
+
+     } catch(Exception $e) {
+         $this->JsonCall(['error'=>$e->getMessage()], HttpCode::NO_CONTENT);
+
+     }
+
  }
 
+
+ public function updateProduct(){
+     echo "On est dans updatePro";
+     $productModel = new ProductModel();
+    $updatedProduct =  $productModel->updateProduct($this->data);
+     $this->JsonCall($updatedProduct);
+ }
 
 
  public function addProduct(){
@@ -65,7 +80,7 @@ Class ProductController extends MainController {
  public function deleteProduct(){
      $productModel = new ProductModel();
      if($productModel->deleteProduct($this->parameters['ID'])){
-         header('Location:index.php?controller=product&action=getAll&ID='.$this->parameters['ID']);
+         header('Location:index.php?controller=product&action=getAll');
      }
      else{
          echo "error";
@@ -80,10 +95,20 @@ Class ProductController extends MainController {
      $this->JsonCall($categories);
  }
 
+
+ public function addCategory(){
+     $productModel = new productModel();
+     $productModel->addCategory($this->data);
+     $this->JsonCall($this->data);
+ }
+
+
+
+
  //Pour faire un select  dynamique dans le formulaire d'ajout de produit
  public function getSubCategory(){
      $productModel = new productModel();
-     $subCategories = $productModel->getSubCategoryList();
+     $subCategories = $productModel->getSubCategoryList($this->data);
      $this->JsonCall($subCategories);
  }
 
