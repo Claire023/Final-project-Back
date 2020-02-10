@@ -3,6 +3,7 @@
 include('./Classes/Product.php');
 include('./Classes/ProductCategory.php');
 include('./Classes/ProductSubCategory.php');
+include('./Classes/globalSubCategory.php');
 include('./Models/ProductModel.php');
 
 
@@ -62,7 +63,6 @@ Class ProductController extends MainController {
 
 
  public function updateProduct(){
-     echo "On est dans updatePro";
      $productModel = new ProductModel();
     $updatedProduct =  $productModel->updateProduct($this->data);
      $this->JsonCall($updatedProduct);
@@ -96,6 +96,27 @@ Class ProductController extends MainController {
  }
 
 
+ //On récpère par ID pour faire un edit des catégories par ID
+ public function getCategoryById(){
+     $productModel = new ProductModel();
+     try {
+         $category = $productModel->getCategoryById($this->parameters['ID']);
+         $this->JsonCall($category);
+
+     } catch(Exception $e) {
+         $this->JsonCall(['error'=>$e->getMessage()], HttpCode::NO_CONTENT);
+     }
+ }
+
+
+ //edite la catégorie séléctionnée
+ public function updateCategory(){
+     $productModel = new ProductModel();
+     $updatedCategory = $productModel->updateCategory($this->data);
+     $this->JsonCall($updatedCategory);
+ }
+
+
  public function addCategory(){
      $productModel = new productModel();
      $productModel->addCategory($this->data);
@@ -104,6 +125,17 @@ Class ProductController extends MainController {
 
 
 
+ public function deleteCategory(){
+     $productModel = new ProductModel();
+     if($productModel->deleteCategory($this->parameters['ID'])){
+         header('Location:index.php?controller=product&action=getCategory');
+     }
+     else{
+         echo "error";
+     }
+
+ }
+
 
  //Pour faire un select  dynamique dans le formulaire d'ajout de produit
  public function getSubCategory(){
@@ -111,6 +143,59 @@ Class ProductController extends MainController {
      $subCategories = $productModel->getSubCategoryList($this->data);
      $this->JsonCall($subCategories);
  }
+
+
+ //Pour afficher dynamiquement les données des sous catégories avec les catégories associées
+ public function getGlogalSubCategory(){
+     $productModel = new productModel();
+     $subCategories = $productModel->getGlobalSubCategory();
+     $this->JsonCall($subCategories);
+ }
+
+
+ public function getSubCategoryById(){
+     $productModel = new ProductModel();
+     try {
+         $subCategory = $productModel->getSubCategoryById($this->parameters['ID']);
+         $this->JsonCall($subCategory);
+     } catch(Exception $e) {
+         $this->JsonCall(['error'=>$e->getMessage()], HttpCode::NO_CONTENT);
+     }
+ }
+
+
+ public function updateSubCategory(){
+     $productModel = new ProductModel();
+     $updatedSubCategory =  $productModel->updateSubCategory($this->data);
+     $this->JsonCall($updatedSubCategory);
+ }
+
+
+ public function addSubCategory(){
+     $productModel = new productModel();
+     $productModel->addSubCategory($this->data);
+     $this->JsonCall($this->data);
+ }
+
+
+
+ public function deleteSubCategory(){
+     $productModel = new ProductModel();
+     if($productModel->deleteSubCategory($this->parameters['ID'])){
+         header('Location:index.php?controller=product&action=getGlogalSubCategory');
+     }
+     else{
+         echo "error";
+     }
+ }
+
+
+
+
+
+
+
+
 
 
 }

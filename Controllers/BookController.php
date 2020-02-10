@@ -9,8 +9,6 @@ Class BookController extends MainController {
 
 public function addBooking() {
 
-
-
     //récupère le token from index.php
     if($this->isAuthanticated()){
         print_r($this->payload);

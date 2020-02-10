@@ -1,34 +1,31 @@
 <?php
-namespace Classes;
 
-use JsonSerializable;
-
-class ProductSubCategory implements JsonSerializable
-{
+class globalSubCategory implements JsonSerializable {
 
     private $id;
     private $name;
     private  $main_cat;
+    private $name_cat;
 
 
-public function __constructor(){
+    public function __constructor(){
 
     }
 
 
- public static function feedProductSubCategory(array $fProductSubCategory){
+     public static function feedGlobalProductSubCategory(array $fGlobalSubCategory){
 
-        $productSubCategory = new self();
-        //On vérifie l'existence de l'attribut ID
-        if(isset($fProductSubCategory['ID'])){
-            $productSubCategory->setId($fProductSubCategory['ID']);
+       $globalSubCategory = new self();
+       //On vérifie l'existence de l'attribut ID
+       if(isset($fGlobalSubCategory['ID'])){
+        $globalSubCategory->setId($fGlobalSubCategory['ID']);
         }
-        $productSubCategory->setName($fProductSubCategory['name']);
-        $productSubCategory->setMain_cat($fProductSubCategory['main_cat']);
+        $globalSubCategory->setName($fGlobalSubCategory['name']);
+        $globalSubCategory->setMain_cat($fGlobalSubCategory['main_cat']);
+        $globalSubCategory->setName_cat($fGlobalSubCategory['name_cat']);
 
-        return $productSubCategory;
-    }
-
+        return $globalSubCategory;
+        }
 
     /**
      * @return mixed
@@ -55,6 +52,14 @@ public function __constructor(){
     }
 
     /**
+     * @return mixed
+     */
+    public function getName_cat()
+    {
+        return $this->name_cat;
+    }
+
+    /**
      * @param mixed $id
      */
     public function setId($id)
@@ -78,25 +83,25 @@ public function __constructor(){
         $this->main_cat = $main_cat;
     }
 
-
+    /**
+     * @param mixed $name_cat
+     */
+    public function setName_cat($name_cat)
+    {
+        $this->name_cat = $name_cat;
+    }
 
 
     public function jsonSerialize() {
-
         return [
             //a gauche coté database et à droite récupère dans les setters
             'ID' => $this->id,
             'name' => $this->name,
             'main_cat' => $this->main_cat,
-
+            'name_cat' => $this->name_cat
 
         ];
     }
-
-
-
-
-
 
 
 }
