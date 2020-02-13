@@ -6,6 +6,7 @@ include ('./Controllers/MainController.php');
 include ('./Controllers/UserController.php');
 include ('./Controllers/ContactController.php');
 include ('./Controllers/ProductController.php');
+include ('./Controllers/FranchiseController.php');
 include ('./Controllers/BookController.php');
 include ('./Utilitaires/JWT.php');
 include ('./Utilitaires/HttpCode.php');
