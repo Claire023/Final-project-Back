@@ -8,7 +8,7 @@ class FranchiseModel extends MainModel {
      */
     public function getFranchiseMessage() {
         $franchiseMessage = array();
-        $sql = 'SELECT * FROM Franchise';
+        $sql = 'SELECT * FROM Franchise ORDER BY ID DESC';
         $datas = $this->makeSelect($sql);
         foreach($datas as $value){
             $franchiseMessage[] = Franchise::feedFranchise($value);
@@ -20,7 +20,7 @@ class FranchiseModel extends MainModel {
     //Ajout les infos pour les franchises via formulaire coté front
     public function addFranchise($tab) {
         $e ='';
-        $req = 'INSERT INTO Franchise (firstname, lastname, email, phone, city, intake, duration, message) VALUES (:firstname,:lastname, :email, :phone, :city, :intake, :duration, :message);';
+        $req = 'INSERT INTO Franchise (firstname, lastname, email, phone, city, intake, duration, message, date) VALUES (:firstname,:lastname, :email, :phone, :city, :intake, :duration, :message, :date);';
         $param = ['firstname' => $tab['firstname'],
                     'lastname' => $tab['lastname'] ,
                         'email' => $tab['email'],
@@ -28,12 +28,26 @@ class FranchiseModel extends MainModel {
                         'city' => $tab['city'],
                         'intake' => $tab['intake'],
                         'duration' => $tab['duration'],
-                        'message' => $tab['message']];
+                        'message' => $tab['message'],
+                         'date' => date('Y-m-d H:i:s')];
         try{
             $this->makeStatement($req,$param);
         }catch(PDOexception $e){}
 
         return $e;
+    }
+
+
+
+
+    //Je supprime un prospect en fonction de son ID
+    public function deleteFranchise($id){
+        $sql = 'DELETE FROM Franchise WHERE ID=:id';
+        $param = array('id'=>$id);
+        if($this->makeStatement($sql,$param)){
+            return true;
+        }
+        return false;
     }
 
 

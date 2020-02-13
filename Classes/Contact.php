@@ -10,6 +10,8 @@ class Contact implements JsonSerializable  {
         private $nom;
         private $sujet;
         private $message;
+        private $date;
+
 
 
         public function __constructor(){
@@ -21,6 +23,8 @@ class Contact implements JsonSerializable  {
 
             $contact = new self();
             //On vérifie l'existence de l'attribut ID
+
+
             if(isset($fContact['ID'])){
                 $contact->setId($fContact['ID']);
             }
@@ -28,6 +32,7 @@ class Contact implements JsonSerializable  {
             $contact->setNom($fContact['nom']);
             $contact->setSujet($fContact['sujet']);
             $contact->setMessage($fContact['message']);
+            $contact->setDate($fContact['date']);
 
             return $contact;
         }
@@ -35,6 +40,22 @@ class Contact implements JsonSerializable  {
 
         public function toString(){
             return $this->email;
+        }
+
+        /**
+         * @return mixed
+         */
+        public function getDate()
+        {
+            return $this->date;
+        }
+
+        /**
+         * @param mixed $date
+         */
+        public function setDate($date)
+        {
+            $this->date = $date;
         }
 
 
@@ -127,6 +148,7 @@ class Contact implements JsonSerializable  {
                 'nom' => $this->nom,
                 'sujet' => $this->sujet,
                 'message' => $this->message,
+                'date' =>$this->date
             ];
         }
 

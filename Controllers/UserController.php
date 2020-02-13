@@ -24,8 +24,6 @@ Class UserController extends MainController {
         //$userToAdd = User::feedUser($this->data);
         $userModel = new UserModel();
         $userModel->addUser($this->data);
-
-
         $this->JsonCall($this->data);
     }
 

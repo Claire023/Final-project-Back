@@ -12,6 +12,7 @@ class Franchise implements JsonSerializable {
     private $intake;
     private $duration;
     private $message;
+    private $date;
 
 
     public function __constructor(){
@@ -34,10 +35,19 @@ class Franchise implements JsonSerializable {
         $franchise->setIntake($fFranchise['intake']);
         $franchise->setDuration($fFranchise['duration']);
         $franchise->setMessage($fFranchise['message']);
+        $franchise->setDate($fFranchise['date']);
 
         return $franchise;
     }
 
+
+    /**
+     * @return mixed
+     */
+    public function getDate()
+    {
+        return $this->date;
+    }
 
 
     /**
@@ -120,6 +130,16 @@ class Franchise implements JsonSerializable {
         $this->id = $id;
     }
 
+
+
+    /**
+     * @param mixed $date
+     */
+    public function setDate($date)
+    {
+        $this->date = $date;
+    }
+
     /**
      * @param mixed $firstname
      */
@@ -196,7 +216,8 @@ class Franchise implements JsonSerializable {
             'city'=>$this->city,
             'intake'=>$this->intake,
             'duration'=>$this->duration,
-            'message'=>$this->message
+            'message'=>$this->message,
+            'date'=>$this->date
         ];
     }
 

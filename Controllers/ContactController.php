@@ -24,4 +24,16 @@ Class ContactController extends MainController {
         $this->JsonCall($this->data);
     }
 
+
+    public function deleteContact(){
+            $contactModel = new ContactModel();
+            if($contactModel->deleteContact($this->parameters['ID'])){
+                header('Location:index.php?controller=contact&action=getContactList');
+            }
+            else{
+                echo "error";
+            }
+
+        }
+
 }

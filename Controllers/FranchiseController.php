@@ -27,5 +27,17 @@ class FranchiseController extends MainController {
 
 
 
+    public function deleteFranchise(){
+        $franchiseModel = new FranchiseModel();
+        if($franchiseModel->deleteFranchise($this->parameters['ID'])){
+            header('Location:index.php?controller=franchise&action=getFranchiseList');
+        }
+        else{
+            echo "error";
+        }
+
+    }
+
+
 }
 
