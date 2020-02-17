@@ -8,10 +8,10 @@ Class MainController {
 
     protected $parameters;// array parametres obtenu en GET par défaut
     protected $data;// array Données obtenu en POST par défaut
-    protected $session;// array Données obtenu en SESSION par défaut
     protected $payload;
 
     public function __construct(){
+        //initalisation de mes varialbes en tableau vide
         $this->parameters = array();
         $this->data = array();
         $this->session = array();
@@ -19,6 +19,12 @@ Class MainController {
     }
 
 
+
+   /**
+    * permet initialiser l'entete de la requete http et de renvoyer le corps de la requete en json
+    * @param  $data
+    * @param number $code
+    */
     protected function JsonCall($data, $code = 200){
         header('Content-Type: application/json');
         header("Access-Control-Allow-Origin: http://localhost:4200");
@@ -30,14 +36,20 @@ Class MainController {
         echo $myJson;
     }
 
+
+
+
     protected function isAuthanticated() {
         try {
+            //je donne le coffre et la clé du coffre pour decoder le jwt token , cette cle reste sur mon appli
             $this->payload = JWT::decode($this->data['jwt_token'], SECRET_KEY);
             return true;
+            //token valide
         } catch (Exception $e) {
             return false;
         }
     }
+
 
 //On vérifie si la personne est authentifiée et aussi si notre user est admin
     protected function isAdmin() {
@@ -66,13 +78,7 @@ Class MainController {
         return $this->data;
     }
 
-    /**
-     * @return multitype:
-     */
-    public function getSession()
-    {
-        return $this->session;
-    }
+
 
     /**
      * @param multitype: $parameters
@@ -90,12 +96,5 @@ Class MainController {
         $this->data = $data;
     }
 
-    /**
-     * @param multitype: $session
-     */
-    public function setSession($session)
-    {
-        $this->session = $session;
-    }
 
 }

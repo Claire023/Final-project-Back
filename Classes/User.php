@@ -2,12 +2,14 @@
 
 
 class User implements JsonSerializable {
+    //JSONSERALIZABLE est une interface native de php et a partir du moment ou tu l'implément tu est obligé d'implémenter une function jsonSerialize
+    //car c'est dans le contrat
 
+    //j'ai crée des attributsen privé par sécurité et intégrité
     private $id;
     private $mail;
     private $password;
     private $isAdmin;
-
 
 
 
@@ -16,11 +18,15 @@ class User implements JsonSerializable {
     }
 
 
+    //hydratation
+    //permet de créer un user a partir d'un tableau
+    //c'est la methode qui instancie le user en s'alimentant à partir du tableau
     public static function feedUser(array $fUser){
 
         $user = new self();
         //On vérifie l'existence de l'attribut ID
         if(isset($fUser['u_id'])){
+         //si case u_ID je set u_id
         $user->setId($fUser['u_id']);
         }
         $user->setMail($fUser['email']);
@@ -64,7 +70,6 @@ class User implements JsonSerializable {
     }
 
 
-
     /**
      * @return mixed
      */
@@ -90,7 +95,6 @@ class User implements JsonSerializable {
     }
 
 
-
     /**
      * @param mixed $mail
      */
@@ -106,6 +110,10 @@ class User implements JsonSerializable {
     {
         $this->password = $password;
     }
+
+
+    // vu que les attrbiuts sont en private On est obligé de dire à json comment il doit bosser
+    //on crée un tableau et on lui dit dedans d'aller chercher les attributs
     public function jsonSerialize() {
         return [
             'id' => $this->id,
@@ -113,7 +121,6 @@ class User implements JsonSerializable {
             'password' => $this->password,
         ];
     }
-
 
 }
 

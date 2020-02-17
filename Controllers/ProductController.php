@@ -11,7 +11,6 @@ Class ProductController extends MainController {
 
 
     //Obtenir la liste des produits pour les afficher dans le menu
-
     public function getProductList(){
 
         $productModel = new ProductModel();
@@ -28,51 +27,68 @@ Class ProductController extends MainController {
         $this->JsonCall($products);
  }
 
+        // récupère tout mes produits avec sous-catégores et catégories correspondante également mais classe par catégorie et sous-catégories pour mieux voir dans le menu
+    public function getAllForMenu()
+    {
+        $productModel = new ProductModel();
+        $productMenu = $productModel->getAllForMenu();
+        $data = [];
 
- //récupère tout mes produits avec sous-catégores et catégories correspondante également mais classe par catégorie et sous-catégories pour mieux voir dans le menu
- public function getAllForMenu(){
-     $productModel = new ProductModel();
-     $productMenu = $productModel->getAllForMenu();
-     $data = [];
+        // permet récupération dynamique des données
+        foreach ($productMenu as $value) {
+            if (! empty($value->getSub_category_name())) {
+                $data[$value->getCategory_name()][$value->getSub_category_name()][] = $value;
+            } else {
+                $data[$value->getCategory_name()][] = $value;
+            }
+        }
+        $this->JsonCall($data);
+    }
 
-    // permet récupération dynamique des données
-         foreach($productMenu as $value) {
-             if(!empty($value->getSub_category_name())) {
-                 $data[$value-> getCategory_name()][$value->getSub_category_name()][] = $value;
-             } else {
-                 $data[$value->getCategory_name()][] = $value;
-             }
-     }
-     $this->JsonCall($data);
- }
+        // On récpère par ID pour faire un edit des produit par ID
+    public function getProductById()
+    {
+        $productModel = new ProductModel();
+        try {
+            $product = $productModel->getProductById($this->parameters['ID']);
+            $this->JsonCall($product);
+        } catch (Exception $e) {
+            $this->JsonCall([
+                'error' => $e->getMessage()
+            ], HttpCode::NO_CONTENT);
+        }
+    }
 
+    public function updateProduct()
+    {
+        // verification si donnée bien valides
+        if (FormValidation::isString($this->data['name']) && FormValidation::isString($this->data['description']) && FormValidation::isNumeric($this->data['id_cat']) && FormValidation::isNumeric($this->data['id_sub_category'])) {
 
-//On récpère par ID pour faire un edit des produit par ID
- public function getProductById(){
-     $productModel = new ProductModel();
-     try {
-         $product = $productModel->getProductById($this->parameters['ID']);
-         $this->JsonCall($product);
-
-     } catch(Exception $e) {
-         $this->JsonCall(['error'=>$e->getMessage()], HttpCode::NO_CONTENT);
-
-     }
-
- }
-
-
- public function updateProduct(){
-     $productModel = new ProductModel();
-    $updatedProduct =  $productModel->updateProduct($this->data);
-     $this->JsonCall($updatedProduct);
- }
-
+            $productModel = new ProductModel();
+            $updatedProduct = $productModel->updateProduct($this->data);
+            $this->JsonCall($updatedProduct);
+        } else {
+            $this->JsonCall(Array(
+                'message' => 'Erreur'
+            ), HttpCode::UNAUTHORIZED);
+        }
+    }
 
  public function addProduct(){
+     //verification si donnée bien valides
+     if( FormValidation::isString($this->data['name']) && FormValidation::isString($this->data['description'])
+            && FormValidation::isNumeric($this->data['id_cat']) &&  FormValidation::isNumeric($this->data['id_sub_category'])){
      $productModel = new productModel();
      $productModel->addProduct($this->data);
      $this->JsonCall($this->data);
+
+     } else {
+         $this->JsonCall(Array(
+             'message' => 'Erreur'
+         ), HttpCode::UNAUTHORIZED);
+
+     }
+
  }
 
 
@@ -87,13 +103,13 @@ Class ProductController extends MainController {
      }
  }
 
+        // Pour faire un select dynamique dans le formulaire d'ajout de produit
+    public function getCategory() {
+        $productModel = new productModel();
+        $categories = $productModel->getCategoryList();
+        $this->JsonCall($categories);
+    }
 
-//Pour faire un select  dynamique dans le formulaire d'ajout de produit
- public function getCategory(){
-     $productModel = new productModel();
-     $categories = $productModel->getCategoryList();
-     $this->JsonCall($categories);
- }
 
 
  //On récpère par ID pour faire un edit des catégories par ID
@@ -108,19 +124,35 @@ Class ProductController extends MainController {
      }
  }
 
-
- //edite la catégorie séléctionnée
- public function updateCategory(){
-     $productModel = new ProductModel();
-     $updatedCategory = $productModel->updateCategory($this->data);
-     $this->JsonCall($updatedCategory);
- }
+        // edite la catégorie séléctionnée
+    public function updateCategory(){
+        if (FormValidation::isString($this->data['name'])) {
+            $productModel = new ProductModel();
+            $updatedCategory = $productModel->updateCategory($this->data);
+            $this->JsonCall($updatedCategory);
+        } else {
+            $this->JsonCall(Array(
+                'message' => 'Erreur'
+            ), HttpCode::UNAUTHORIZED);
+        }
+    }
 
 
  public function addCategory(){
-     $productModel = new productModel();
-     $productModel->addCategory($this->data);
-     $this->JsonCall($this->data);
+
+     //verification si donnée bien valides
+     if( FormValidation::isString($this->data['name'])){
+
+         $productModel = new productModel();
+         $productModel->addCategory($this->data);
+         $this->JsonCall($this->data);
+
+     } else {
+         $this->JsonCall(Array(
+             'message' => 'Erreur'
+         ), HttpCode::UNAUTHORIZED);
+     }
+
  }
 
 
@@ -133,7 +165,6 @@ Class ProductController extends MainController {
      else{
          echo "error";
      }
-
  }
 
 
@@ -165,16 +196,33 @@ Class ProductController extends MainController {
 
 
  public function updateSubCategory(){
+     if( FormValidation::isString($this->data['name']) && FormValidation::isNumeric($this->data['main_cat'])){
      $productModel = new ProductModel();
      $updatedSubCategory =  $productModel->updateSubCategory($this->data);
      $this->JsonCall($updatedSubCategory);
+
+     }else {
+         $this->JsonCall(Array(
+             'message' => 'Erreur'
+         ), HttpCode::UNAUTHORIZED);
+
+     }
  }
 
 
  public function addSubCategory(){
+
+     //verification si donnée bien valides
+     if( FormValidation::isString($this->data['name']) && FormValidation::isNumeric($this->data['main_cat'])){
      $productModel = new productModel();
      $productModel->addSubCategory($this->data);
      $this->JsonCall($this->data);
+
+     } else {
+         $this->JsonCall(Array(
+             'message' => 'Erreur'
+         ), HttpCode::UNAUTHORIZED);
+     }
  }
 
 

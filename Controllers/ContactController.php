@@ -18,10 +18,19 @@ Class ContactController extends MainController {
 
     public function addContact(){
 
-        $contactModel = new ContactModel();
-        $contactModel->addContact($this->data);
+        if(FormValidation::isValidEmail($this->data['email'])
+            && FormValidation::isString($this->data['nom'])
+            && FormValidation::isString($this->data['sujet'])
+            && FormValidation::isString($this->data['message'])){
 
-        $this->JsonCall($this->data);
+            $contactModel = new ContactModel();
+            $contactModel->addContact($this->data);
+            $this->JsonCall($this->data);
+        } else {
+            $this->JsonCall(Array(
+                'message' => 'Erreur'
+            ), HttpCode::UNAUTHORIZED);
+        }
     }
 
 
