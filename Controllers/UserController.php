@@ -21,7 +21,7 @@ Class UserController extends MainController {
 
 
     public function addUser(){
-        if(FormValidation::isValidEmail($this->data['email']) && FormValidation::isAlphaNumeric($this->data['password'])) {
+        if(FormValidation::isValidEmail($this->data['email']) && FormValidation::isValidPassword($this->data['password'])) {
                 try {
                     $userModel = new UserModel();
                     $userModel->addUser($this->data);

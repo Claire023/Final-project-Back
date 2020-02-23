@@ -7,7 +7,6 @@ include ('./Controllers/UserController.php');
 include ('./Controllers/ContactController.php');
 include ('./Controllers/ProductController.php');
 include ('./Controllers/FranchiseController.php');
-include ('./Controllers/BookController.php');
 include ('./Utilitaires/JWT.php');
 include ('./Utilitaires/HttpCode.php');
 include ('./Utilitaires/FormValidation.php');
@@ -59,7 +58,7 @@ if(getBearerToken() != null) {
 
 
 // Allow from any origin car en mode dev
-//sert a icdentifier les Cross origins pour établir une communiquation
+//sert a identifier les Cross origins pour établir une communiquation
 if (isset($_SERVER['HTTP_ORIGIN'])) {
     header("Access-Control-Allow-Origin: {$_SERVER['HTTP_ORIGIN']}");
     header('Access-Control-Allow-Credentials: true');

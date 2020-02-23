@@ -16,7 +16,7 @@ Class ProductModel extends MainModel {
 //          foreach($datas as $value){
 //          $productList[] = Product::feedProduct($value);
 //          }
-         return $this->makeSelect($sql);;
+         return $this->makeSelect($sql);
        }
 
 

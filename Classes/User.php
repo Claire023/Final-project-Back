@@ -2,10 +2,10 @@
 
 
 class User implements JsonSerializable {
-    //JSONSERALIZABLE est une interface native de php et a partir du moment ou tu l'implément tu est obligé d'implémenter une function jsonSerialize
+    //JSONSERALIZABLE est une interface native de php et a partir du moment ou tu l'implémente tu est obligé d'implémenter une function jsonSerialize
     //car c'est dans le contrat
 
-    //j'ai crée des attributsen privé par sécurité et intégrité
+    //j'ai crée des attributs en privé par sécurité et intégrité
     private $id;
     private $mail;
     private $password;

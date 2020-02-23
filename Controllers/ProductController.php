@@ -62,7 +62,9 @@ Class ProductController extends MainController {
     public function updateProduct()
     {
         // verification si donnée bien valides
-        if (FormValidation::isString($this->data['name']) && FormValidation::isString($this->data['description']) && FormValidation::isNumeric($this->data['id_cat']) && FormValidation::isNumeric($this->data['id_sub_category'])) {
+        if (FormValidation::isString($this->data['name']) && FormValidation::isString($this->data['description'])
+            && FormValidation::isNumeric($this->data['id_cat'])
+            && FormValidation::isNumeric($this->data['id_sub_category'])) {
 
             $productModel = new ProductModel();
             $updatedProduct = $productModel->updateProduct($this->data);

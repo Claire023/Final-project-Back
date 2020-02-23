@@ -21,8 +21,7 @@ class MainModel{
      * permet de gérer plusieurs requetes , plusieurs types de requetes et des parametre en nombre différents
      * @return boolean|PDOStatement
      */
-    protected function makeStatement($sql, $params = array())
-    {
+    protected function makeStatement($sql, $params = array()){
         if(count($params) == 0)
         //si je n'ai pas de paramètres je rentre dans ce if et j'execute directement la query
         {

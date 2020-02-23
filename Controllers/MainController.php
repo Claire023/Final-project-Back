@@ -10,14 +10,13 @@ Class MainController {
     protected $data;// array Données obtenu en POST par défaut
     protected $payload;
 
+
     public function __construct(){
         //initalisation de mes varialbes en tableau vide
         $this->parameters = array();
         $this->data = array();
-        $this->session = array();
         $this->payload = array();
     }
-
 
 
    /**

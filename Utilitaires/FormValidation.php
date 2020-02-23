@@ -31,14 +31,22 @@ class FormValidation {
 
 
     /**
-     * Verifie si un string est composé uniquement de caracteres numeriques
+     * Verifie si un string est composé uniquement de caracteres
      * @param  [string]  $string [description]
      * @return boolean
      */
     static public function isString($string){
         //On verifie si le string est vide et que l'input contient bien un string
-        return !empty($string) && is_string($string);
+        return  is_string($string);
         //retourne true ou false dans les 2 cas
+    }
+
+
+
+    static public function isValidPassword($string){
+        //On verifie si le string est vide
+        return !empty($string) && preg_match('#^(?=\\D*\\d)(?=[^a-z]*[a-z])(?=[^A-Z]*[A-Z]).{8,30}$#', $string);
+        //Minimum 8 characters, at least one letter, one number, one maj , one spécial char
     }
 
 
